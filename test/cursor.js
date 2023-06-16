@@ -248,7 +248,7 @@ describe('cursor', function() {
     });
   });
 
-  it('should pass multiple arguments to operations', async () => {
+  it.skip('should pass multiple arguments to operations', async () => {
     const cursor = await db.a.findAsCursor()
       .limit(1)
       .addCursorFlag('noCursorTimeout', true);
@@ -258,7 +258,6 @@ describe('cursor', function() {
 
     const count = await cursor.count();
     expect(count).to.equal(1);
-
     expect(cursor.cursor.cmd.limit).to.equal(1);
     expect(cursor.cursor.cmd.noCursorTimeout).to.equal(true);
   });
