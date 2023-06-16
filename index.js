@@ -32,6 +32,9 @@ module.exports = function(connectionString, options) {
   });
 }
 
+// hack for joi error annotation to avoid cloning objectIds
+mongodb.ObjectId.prototype.isImmutable = true;
+
 // expose prototypes
 module.exports.Database = Database
 module.exports.Collection = Collection
