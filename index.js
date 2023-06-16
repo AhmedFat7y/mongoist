@@ -35,6 +35,9 @@ module.exports = function(connectionString, options) {
 // hack for joi error annotation to avoid cloning objectIds
 mongodb.ObjectId.prototype.isImmutable = true;
 
+function createNewObjectId(...args){ return new mongodb.ObjectId(...args); }
+createNewObjectId.prototype = mongodb.ObjectId.prototype;
+
 // expose prototypes
 module.exports.Database = Database
 module.exports.Collection = Collection
@@ -50,9 +53,8 @@ module.exports.Long = mongodb.Long
 module.exports.NumberLong = mongodb.Long // Alias for shell compatibility
 module.exports.MinKey = mongodb.MinKey
 module.exports.MaxKey = mongodb.MaxKey
-module.exports.ObjectID = mongodb.ObjectID
-module.exports.ObjectId = mongodb.ObjectId
-module.exports.Symbol = mongodb.Symbol
+module.exports.ObjectId = createNewObjectId
+module.exports.objectId = createNewObjectId
 module.exports.Timestamp = mongodb.Timestamp
 
 // Add support for default ES6 module imports
