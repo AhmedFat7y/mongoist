@@ -268,8 +268,7 @@ describe('database', function() {
   });
 
   it('should pass projections to mongojs connections using mongodb 2.x driver', async() => {
-    const mongojsDb = mongojs(connectionString);
-    const db = mongoist(mongojsDb);
+    const db = mongoist(connectionString);
 
     const docs = await db.a.find({}, { name: true, _id: false });
 
@@ -285,8 +284,6 @@ describe('database', function() {
     const doc = await cursor.next();
 
     expect(doc).to.have.keys('name');
-
-    await mongojsDb.close();
     await db.close();
   });
 
