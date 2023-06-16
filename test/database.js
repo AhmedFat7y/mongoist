@@ -183,7 +183,7 @@ describe('database', function() {
           roles: ['readWrite']
         });
       } catch(e) {
-        expect(e.code).to.equal(11000);
+        expect(e.code).to.equal(51003);
         return;
       }
 
