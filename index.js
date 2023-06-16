@@ -41,8 +41,11 @@ function init (connectionString, options) {
 // hack for joi error annotation to avoid cloning objectIds
 mongodb.ObjectId.prototype.isImmutable = true;
 
-function createNewObjectId(...args){ return new mongodb.ObjectId(...args); }
-createNewObjectId.prototype = mongodb.ObjectId.prototype;
+const ObjectIdProxy = new Proxy(mongodb.ObjectId, {
+  apply: function(target, thisArg, argumentsList) {
+    return new mongodb.ObjectId(...argumentsList)
+  }
+})
 
 function isMongoError(error) { return error?.name === 'MongoServerError' || error?.name === 'MongoError' }
 
@@ -61,8 +64,8 @@ module.exports.Long = mongodb.Long
 module.exports.NumberLong = mongodb.Long // Alias for shell compatibility
 module.exports.MinKey = mongodb.MinKey
 module.exports.MaxKey = mongodb.MaxKey
-module.exports.ObjectId = createNewObjectId
-module.exports.objectId = createNewObjectId
+module.exports.ObjectId = ObjectIdProxy
+module.exports.objectId = ObjectIdProxy
 module.exports.Timestamp = mongodb.Timestamp
 module.exports.isMongoError = isMongoError
 // Add support for default ES6 module imports
