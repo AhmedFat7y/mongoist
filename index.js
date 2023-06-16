@@ -8,8 +8,14 @@ function isValidCollectionName(name) {
   return typeof name === 'string' && name &&
     !(name.includes('$') || name.includes('\0') || name.startsWith('system.'));
 }
-
-module.exports = function(connectionString, options) {
+module.exports = init
+/**
+ *
+ * @param {*} connectionString
+ * @param {*} options
+ * @returns {Database}
+ */
+function init (connectionString, options) {
   const db = new Database(connectionString, options);
   const dbMethods = Object.create(null);
 
