@@ -38,6 +38,8 @@ mongodb.ObjectId.prototype.isImmutable = true;
 function createNewObjectId(...args){ return new mongodb.ObjectId(...args); }
 createNewObjectId.prototype = mongodb.ObjectId.prototype;
 
+function isMongoError(error) { return error?.name === 'MongoServerError' || error?.name === 'MongoError' }
+
 // expose prototypes
 module.exports.Database = Database
 module.exports.Collection = Collection
@@ -56,6 +58,6 @@ module.exports.MaxKey = mongodb.MaxKey
 module.exports.ObjectId = createNewObjectId
 module.exports.objectId = createNewObjectId
 module.exports.Timestamp = mongodb.Timestamp
-
+module.exports.isMongoError = isMongoError
 // Add support for default ES6 module imports
 module.exports.default = module.exports
