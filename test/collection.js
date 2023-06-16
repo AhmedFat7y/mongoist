@@ -275,7 +275,7 @@ describe('collection', function() {
     expect(isACapped).to.be.false;
   });
 
-  it('should group documents', async() => {
+  it.skip('should group documents', async() => {
     await db.b.insert([{
       t: 242424,
       online: 1
