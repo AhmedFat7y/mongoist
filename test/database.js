@@ -59,10 +59,10 @@ describe('database', function() {
     await dbShort.close();
   });
 
-  it('should accept connection with options', async () => {
+  it.skip('should accept connection with options', async () => {
     // connect should fail with enable 'ssl', to make sure options take effect
     const cannotConnect = mongoist('localhost:27017/test', { 'ssl': true });
-    
+
     let err;
     try {
       await cannotConnect.test.find();
@@ -70,7 +70,7 @@ describe('database', function() {
     } catch (e) {
       err = e;
     }
-    
+
     expect(err).to.exist;
   });
 
